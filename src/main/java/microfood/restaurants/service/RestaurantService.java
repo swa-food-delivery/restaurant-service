@@ -34,7 +34,7 @@ public class RestaurantService {
         Restaurant create = rr.save(res);
         return rm.mapEntityToDto(create);
     }
-
+    //
     public RestaurantDTO getRestaurantById(UUID resid) throws RestaurantNotFoundException {
         Restaurant res = rr.getByResId(resid).orElseThrow(RestaurantNotFoundException::new);
         return rm.mapEntityToDto(res);
