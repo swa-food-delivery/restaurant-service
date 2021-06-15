@@ -1,6 +1,5 @@
 package microfood.restaurants.repository;
 
-import microfood.restaurants.entity.Food;
 import microfood.restaurants.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +9,7 @@ import java.util.UUID;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, UUID> {
 
-    Optional<Restaurant> getByResId(UUID id);
+    Optional<Restaurant> getById(UUID id);
 
     List<Restaurant> getByName(String name);
 

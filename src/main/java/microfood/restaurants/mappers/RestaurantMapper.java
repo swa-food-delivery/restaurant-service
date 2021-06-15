@@ -21,8 +21,8 @@ public class RestaurantMapper {
     public RestaurantMapper(FoodMapper orderItemMapper) {
         this.mapper = new ModelMapper();
         this.foodMapper = orderItemMapper;
-        mapper.createTypeMap(Restaurant.class, RestaurantDTO.class).addMapping(Restaurant::getName, RestaurantDTO::setId);
-        mapper.createTypeMap(RestaurantDTO.class, Restaurant.class).addMapping(RestaurantDTO::getId, Restaurant::setName)
+        mapper.createTypeMap(Restaurant.class, RestaurantDTO.class).addMapping(Restaurant::getName, RestaurantDTO::setName);
+        mapper.createTypeMap(RestaurantDTO.class, Restaurant.class).addMapping(RestaurantDTO::getId, Restaurant::setId)
                 .addMappings(mp -> mp.using(ctx -> orderItemMapper.mapDtosToEntitiesList((List<FoodDTO>) ctx.getSource()))
                         .map(RestaurantDTO::getMenu, Restaurant::setMenu));
     }

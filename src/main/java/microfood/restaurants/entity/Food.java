@@ -3,8 +3,12 @@ package microfood.restaurants.entity;
 import javax.persistence.*;
 import java.lang.annotation.Target;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="food")
+@NoArgsConstructor
 public class Food {
 
     @Id

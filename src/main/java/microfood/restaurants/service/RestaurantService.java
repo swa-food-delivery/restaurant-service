@@ -1,13 +1,9 @@
 package microfood.restaurants.service;
 
-import microfood.restaurants.dto.FoodDTO;
 import microfood.restaurants.dto.RestaurantDTO;
-import microfood.restaurants.entity.Food;
 import microfood.restaurants.entity.Restaurant;
 import microfood.restaurants.exceptions.RestaurantNotFoundException;
-import microfood.restaurants.mappers.FoodMapper;
 import microfood.restaurants.mappers.RestaurantMapper;
-import microfood.restaurants.repository.FoodRepository;
 import microfood.restaurants.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +32,7 @@ public class RestaurantService {
     }
     //
     public RestaurantDTO getRestaurantById(UUID resid) throws RestaurantNotFoundException {
-        Restaurant res = rr.getByResId(resid).orElseThrow(RestaurantNotFoundException::new);
+        Restaurant res = rr.getById(resid).orElseThrow(RestaurantNotFoundException::new);
         return rm.mapEntityToDto(res);
     }
 
@@ -55,7 +51,7 @@ public class RestaurantService {
     }
 
     public void removeRestaurant(UUID resId) throws RestaurantNotFoundException {
-        Restaurant res = rr.getByResId(resId).orElseThrow(RestaurantNotFoundException::new);
+        Restaurant res = rr.getById(resId).orElseThrow(RestaurantNotFoundException::new);
 
         rr.delete(res);
     }
