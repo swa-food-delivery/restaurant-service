@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import microfood.restaurants.entity.Restaurant;
 
+import java.util.UUID;
 
 
 @Data
@@ -15,5 +16,5 @@ public class FoodDTO {
 
     private String name;
 
-    private Restaurant restaurant;
+    private UUID resId;
 }

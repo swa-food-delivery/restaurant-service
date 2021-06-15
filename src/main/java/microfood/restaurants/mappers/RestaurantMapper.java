@@ -15,13 +15,14 @@ import org.springframework.stereotype.Component;
 public class RestaurantMapper {
 
     private final ModelMapper mapper;
-    private final FoodMapper foodMapper;
+    //private final FoodMapper foodMapper;
 
     @Autowired
     public RestaurantMapper(FoodMapper orderItemMapper) {
         this.mapper = new ModelMapper();
-        this.foodMapper = orderItemMapper;
+        //this.foodMapper = orderItemMapper;
         mapper.createTypeMap(Restaurant.class, RestaurantDTO.class).addMapping(Restaurant::getName, RestaurantDTO::setName);
+        mapper.createTypeMap(Restaurant.class, FoodDTO.class).addMapping(Restaurant::getId, FoodDTO::setResId);
         mapper.createTypeMap(RestaurantDTO.class, Restaurant.class).addMapping(RestaurantDTO::getId, Restaurant::setId)
                 .addMappings(mp -> mp.using(ctx -> orderItemMapper.mapDtosToEntitiesList((List<FoodDTO>) ctx.getSource()))
                         .map(RestaurantDTO::getMenu, Restaurant::setMenu));
@@ -34,7 +35,9 @@ public class RestaurantMapper {
     }
 
     public RestaurantDTO mapEntityToDto(Restaurant order) {
-        return mapper.map(order, RestaurantDTO.class);
+        RestaurantDTO rdo = mapper.map(order, RestaurantDTO.class);
+        rdo.getMenu().forEach(fooddto->fooddto.setResId(order.getId()));
+        return rdo;
     }
 
     public List<RestaurantDTO> mapEntitiesToDtoList(List<Restaurant> orders) {

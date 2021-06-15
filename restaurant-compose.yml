@@ -9,7 +9,7 @@ services:
     volumes:
       - "restaurant-db:/var/lib/postgresql/data"
     environment:
-      POSTGRES_USER: admin
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
 volumes:
   restaurant-db:

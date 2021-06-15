@@ -1,7 +1,9 @@
 package microfood.restaurants.service;
 
+import microfood.restaurants.dto.FoodDTO;
 import microfood.restaurants.dto.RestaurantDTO;
 import microfood.restaurants.entity.Restaurant;
+import microfood.restaurants.exceptions.NoRestaurantsException;
 import microfood.restaurants.exceptions.RestaurantNotFoundException;
 import microfood.restaurants.mappers.RestaurantMapper;
 import microfood.restaurants.repository.RestaurantRepository;
@@ -52,8 +54,13 @@ public class RestaurantService {
 
     public void removeRestaurant(UUID resId) throws RestaurantNotFoundException {
         Restaurant res = rr.getById(resId).orElseThrow(RestaurantNotFoundException::new);
-
         rr.delete(res);
+    }
+
+    public List<RestaurantDTO> getAllRestaurants() throws NoRestaurantsException {
+        List<RestaurantDTO> res = rm.mapEntitiesToDtoList(rr.findAll());
+        if (res!=null) return res;
+        else throw new NoRestaurantsException();
     }
 
 /*    public List<FoodDTO> getFoodByRestaurantId(UUID resId) throws RestaurantNotFoundException {
