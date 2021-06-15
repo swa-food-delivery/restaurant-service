@@ -1,6 +1,8 @@
 package microfood.restaurants.entity;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import microfood.restaurants.dto.RestaurantDTO;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name="restaurants")
+@NoArgsConstructor
 public class Restaurant implements Serializable {
 
     @Id
@@ -21,7 +24,7 @@ public class Restaurant implements Serializable {
 
     private String address;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "restaurants", cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Food> menu;
 
     public Restaurant(String name, String address, List<Food> menu) {
