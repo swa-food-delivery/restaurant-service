@@ -1,0 +1,12 @@
+{
+  "name": "testName",
+  "address": "Test street",
+  "menu": [
+    {
+      "name": "eda"
+    },
+    {
+      "name": "test food"
+    }
+  ]
+}

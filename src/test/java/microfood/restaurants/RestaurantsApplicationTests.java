@@ -79,10 +79,8 @@ class RestaurantsApplicationTests {
         proxy = ClientAndServer.startClientAndServer(4444);
         System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", String.valueOf(proxy.getPort()));
-        System.out.println("PORT OF PROXY IS " + proxy.getPort());
         mockServer = startClientAndServer(4444);
         System.setProperty("bookService.port", String.valueOf(mockServer.getPort()));
-        System.out.println("PORT OF MOCKJ SERVER IS " + mockServer.getPort());
     }
 
     @AfterClass
@@ -112,14 +110,14 @@ class RestaurantsApplicationTests {
     public void shouldKillMe() throws IOException {
         URL url = Resources.getResource("restaurants.json");
         String response = Resources.toString(url, StandardCharsets.UTF_8);
-        new MockServerClient("localhost", 4444)  .when(    request()
+        new MockServerClient("127.0.0.1", 4444)  .when(    request()
                 .withMethod("GET")
                 .withPath("/restaurants")).
                 respond(
                         response().withStatusCode(200)
                                 .withBody(response));
 
-        new MockServerClient("localhost", 4444)
+        new MockServerClient("127.0.0.1", 4444)
                 .verify(
                         request()
                         .withMethod("GET")
