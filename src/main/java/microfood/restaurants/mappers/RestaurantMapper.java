@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 public class RestaurantMapper {
 
     private final ModelMapper mapper;
-    //private final FoodMapper foodMapper;
+    private final FoodMapper foodMapper;
 
     @Autowired
     public RestaurantMapper(FoodMapper orderItemMapper) {
         this.mapper = new ModelMapper();
-        //this.foodMapper = orderItemMapper;
+        this.foodMapper = orderItemMapper;
         mapper.createTypeMap(Restaurant.class, RestaurantDTO.class).addMapping(Restaurant::getName, RestaurantDTO::setName);
         mapper.createTypeMap(Restaurant.class, FoodDTO.class).addMapping(Restaurant::getId, FoodDTO::setResId);
         mapper.createTypeMap(RestaurantDTO.class, Restaurant.class).addMapping(RestaurantDTO::getId, Restaurant::setId)

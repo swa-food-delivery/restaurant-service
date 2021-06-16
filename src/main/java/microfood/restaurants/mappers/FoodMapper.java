@@ -1,9 +1,7 @@
 package microfood.restaurants.mappers;
 
 import microfood.restaurants.dto.FoodDTO;
-import microfood.restaurants.dto.RestaurantDTO;
 import microfood.restaurants.entity.Food;
-import microfood.restaurants.entity.Restaurant;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,23 +12,21 @@ import java.util.stream.Collectors;
 @Component
 public class FoodMapper {
 
-    public final ModelMapper mapper;
-    //private final RestaurantMapper rm;
+    private final ModelMapper mapper;
 
     @Autowired
     public FoodMapper() {
         this.mapper = new ModelMapper();
-        //this.rm=rm;
         mapper.createTypeMap(Food.class, FoodDTO.class).addMapping(Food::getName, FoodDTO::setName)
                 .addMapping(src -> src.getRestaurant().getId(), FoodDTO::setResId);
         mapper.typeMap(FoodDTO.class, Food.class).addMappings(mp -> mp.skip(Food::setId));
     }
 
     public FoodDTO mapEntityToDto(Food food) {
-        //return mapper.map(food, FoodDTO.class);
-        FoodDTO fdo = mapper.map(food, FoodDTO.class);
+        return mapper.map(food, FoodDTO.class);
+        /*FoodDTO fdo = mapper.map(food, FoodDTO.class);
         fdo.setResId(food.getRestaurant().getId());
-        return fdo;
+        return fdo;*/
     }
 
     public Food mapDtoToEntity(FoodDTO food) {

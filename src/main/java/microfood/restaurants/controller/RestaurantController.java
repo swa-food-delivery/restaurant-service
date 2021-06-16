@@ -1,5 +1,6 @@
 package microfood.restaurants.controller;
 
+import microfood.restaurants.dto.FoodDTO;
 import microfood.restaurants.dto.RestaurantDTO;
 import microfood.restaurants.exceptions.NoRestaurantsException;
 import microfood.restaurants.exceptions.RestaurantNotFoundException;
@@ -31,6 +32,21 @@ public class RestaurantController {
     @GetMapping("/{resId}")
     public RestaurantDTO getRestaurantById(@PathVariable UUID resId) throws RestaurantNotFoundException {
         return rs.getRestaurantById(resId);
+    }
+
+    @GetMapping("/address/{address}")
+    public List<RestaurantDTO> getRestaurantsByAddress(@PathVariable String address) throws RestaurantNotFoundException {
+        return rs.getRestaurantsByAddress(address);
+    }
+
+    @GetMapping("/{resId}/menu")
+    public List<FoodDTO> getRestaurantMenu(@PathVariable UUID resId) throws RestaurantNotFoundException {
+        return rs.getFoodByRestaurantId(resId);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<RestaurantDTO> getRestaurantsByName(@PathVariable String name) throws RestaurantNotFoundException {
+        return rs.getRestaurantByName(name);
     }
 
     @GetMapping

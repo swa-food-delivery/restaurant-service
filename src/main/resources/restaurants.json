@@ -1,0 +1,19 @@
+[
+  {
+    "id": "4d0ab81b-6a3d-443f-bfaf-3c08fd5565ad",
+    "name": "test 2",
+    "address": "Test street",
+    "menu": [
+      {
+        "id": 1,
+        "name": "eda",
+        "resId": "4d0ab81b-6a3d-443f-bfaf-3c08fd5565ad"
+      },
+      {
+        "id": 2,
+        "name": "test food",
+        "resId": "4d0ab81b-6a3d-443f-bfaf-3c08fd5565ad"
+      }
+    ]
+  }
+]

@@ -5,7 +5,9 @@ import microfood.restaurants.dto.RestaurantDTO;
 import microfood.restaurants.entity.Restaurant;
 import microfood.restaurants.exceptions.NoRestaurantsException;
 import microfood.restaurants.exceptions.RestaurantNotFoundException;
+import microfood.restaurants.mappers.FoodMapper;
 import microfood.restaurants.mappers.RestaurantMapper;
+import microfood.restaurants.repository.FoodRepository;
 import microfood.restaurants.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,15 @@ public class RestaurantService {
 
     private final RestaurantRepository rr;
     private final RestaurantMapper rm;
+    private final FoodMapper fm;
+    private final FoodRepository fr;
 
     @Autowired
-    public RestaurantService(RestaurantRepository rr, RestaurantMapper rm) {
+    public RestaurantService(RestaurantRepository rr, RestaurantMapper rm, FoodMapper fm, FoodRepository fr) {
         this.rr=rr;
         this.rm=rm;
+        this.fm=fm;
+        this.fr=fr;
     }
 
     public RestaurantDTO createRestaurant(RestaurantDTO rdo) {
@@ -63,9 +69,9 @@ public class RestaurantService {
         else throw new NoRestaurantsException();
     }
 
-/*    public List<FoodDTO> getFoodByRestaurantId(UUID resId) throws RestaurantNotFoundException {
-        Restaurant res = rr.getByResId(resId).orElseThrow(RestaurantNotFoundException::new);
+    public List<FoodDTO> getFoodByRestaurantId(UUID resId) throws RestaurantNotFoundException {
+        rr.getById(resId).orElseThrow(RestaurantNotFoundException::new);
         return fm.mapEntitiesToListDto(fr.getAllByRestaurantId(resId));
-    }*/
+    }
 
 }

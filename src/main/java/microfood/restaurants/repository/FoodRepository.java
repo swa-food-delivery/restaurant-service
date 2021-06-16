@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface FoodRepository extends JpaRepository<Food, UUID> {
 
+    Food getById(int id);
+
     List<Food> getAllByRestaurantId(UUID id);
 
     List<Food> getAllByRestaurantName(String name);
