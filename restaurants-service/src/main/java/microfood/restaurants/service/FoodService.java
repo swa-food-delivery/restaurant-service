@@ -1,5 +1,6 @@
 package microfood.restaurants.service;
 
+import microfood.orders.client.OrdersClient;
 import microfood.restaurants.dto.FoodDTO;
 import microfood.restaurants.entity.Food;
 import microfood.restaurants.exceptions.RestaurantNotFoundException;
@@ -18,23 +19,19 @@ public class FoodService {
 
     private final FoodRepository fr;
     private final FoodMapper fm;
+    private final OrdersClient ordersClient;
 
     @Autowired
-    public FoodService(FoodRepository fr, FoodMapper fm) {
+    public FoodService(FoodRepository fr, FoodMapper fm, OrdersClient ordersClient) {
         this.fr=fr;
         this.fm=fm;
+        this.ordersClient = ordersClient;
     }
 
+    //doesn't work actually
     public FoodDTO addMenuItem(FoodDTO food) {
         Food item = fm.mapDtoToEntity(food);
         return fm.mapEntityToDto(fr.save(item));
-    }
-
-    public List<FoodDTO> getFoodByRestaurantId(UUID resId) throws RestaurantNotFoundException {
-        List<FoodDTO> menu = fm.mapEntitiesToListDto(fr.getAllByRestaurantId(resId));
-        if (menu!=null) {
-            return menu;
-        } else throw new RestaurantNotFoundException();
     }
 
     public FoodDTO getFoodById(int id) {

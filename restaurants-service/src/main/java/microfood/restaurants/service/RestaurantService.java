@@ -69,7 +69,7 @@ public class RestaurantService {
         else throw new NoRestaurantsException();
     }
 
-    public List<FoodDTO> getFoodByRestaurantId(UUID resId) throws RestaurantNotFoundException {
+    public List<FoodDTO> getMenu(UUID resId) throws RestaurantNotFoundException {
         rr.getById(resId).orElseThrow(RestaurantNotFoundException::new);
         return fm.mapEntitiesToListDto(fr.getAllByRestaurantId(resId));
     }

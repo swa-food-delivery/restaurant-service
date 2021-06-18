@@ -30,26 +30,31 @@ public class RestaurantController {
     }
 
     @GetMapping("/{resId}")
+    @ResponseStatus(HttpStatus.OK)
     public RestaurantDTO getRestaurantById(@PathVariable UUID resId) throws RestaurantNotFoundException {
         return rs.getRestaurantById(resId);
     }
 
     @GetMapping("/address/{address}")
+    @ResponseStatus(HttpStatus.OK)
     public List<RestaurantDTO> getRestaurantsByAddress(@PathVariable String address) throws RestaurantNotFoundException {
         return rs.getRestaurantsByAddress(address);
     }
 
     @GetMapping("/{resId}/menu")
-    public List<FoodDTO> getRestaurantMenu(@PathVariable UUID resId) throws RestaurantNotFoundException {
-        return rs.getFoodByRestaurantId(resId);
+    @ResponseStatus(HttpStatus.OK)
+    public List<FoodDTO> getMenu(@PathVariable UUID resId) throws RestaurantNotFoundException {
+        return rs.getMenu(resId);
     }
 
     @GetMapping("/name/{name}")
+    @ResponseStatus(HttpStatus.OK)
     public List<RestaurantDTO> getRestaurantsByName(@PathVariable String name) throws RestaurantNotFoundException {
         return rs.getRestaurantByName(name);
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<RestaurantDTO> getAllRestaurants() throws NoRestaurantsException {
         return rs.getAllRestaurants();
     }
