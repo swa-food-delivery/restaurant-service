@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name="restaurants-service")
+@FeignClient(name="restaurants-service", fallback = RestaurantsClientFallback.class)
 public interface RestaurantsClient {
     @RequestMapping(method = RequestMethod.GET, value = "/restaurants/{resId}/menu")
     List<FoodDTO> getMenu(@PathVariable UUID resId) throws RestaurantNotFoundException;
