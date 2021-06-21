@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Restaurants service
+  description: Microservice for restaurant and menu managing
+  version: 1.0.0
+servers:
+- url: 'https'
+paths:
+  /restaurants:
+    get:
+      summary: Get all restaurants
+      operationId: getAllRestaurants
+      parameters:
+      - $ref: '#/components/parameters/ResIdPathParameter'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDTO'
+    post:
+      summary: Create a new restaurant
+      operationId: createRestaurant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantDTO'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantDTO'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  /restaurants/{resId}:
+    get:
+      summary: Get restaurant by id
+      operationId: getRestaurantById
+      parameters:
+      - $ref: '#/components/parameters/ResIdPathParameter'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantDTO'
+        404:
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete restaurant
+      operationId: deleteRestaurant
+      parameters:
+      - $ref: '#/components/parameters/ResIdPathParameter'
+      responses:
+        200:
+          $ref: '#/components/responses/Ok'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+  /restaurants/{resId}/menu:
+    get:
+      summary: Get menu of restaurant by restaurant id
+      operationId: getMenu
+      parameters:
+      - $ref: '#/components/parameters/ResIdPathParameter'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FoodDTO'
+  /restaurants/name/{name}:
+    get:
+      summary: Get list of restaurants with specified name
+      operationId: getRestaurantsByName
+      parameters:
+      - $ref: '#/components/parameters/RestaurantNamePathParameter'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FoodDTO'
+
+components:
+  schemas:
+
+    RestaurantDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        address:
+          type: string
+        menu:
+          type: array
+          items:
+            $ref: '#/components/schemas/FoodDTO'
+
+      required:
+      - name
+
+    FoodDTO:
+      title: Food DTO
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        resId:
+          type: string
+          format: uuid
+
+  responses:
+    Ok:
+      description: Ok, empty returned
+    Forbidden:
+      description: Forbiden
+    Unauthorised:
+      description: Unauthorised
+    NotFound:
+      description: Specified resource was not found
+
+  parameters:
+    ResIdPathParameter:
+      name: resId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    RestaurantNamePathParameter:
+      name: name
+      in: path
+      required: true
+      schema:
+        type: string
