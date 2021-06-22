@@ -2,7 +2,6 @@ package microfood.restaurants.controller;
 
 import microfood.orders.dtos.InternalErrorDTO;
 import microfood.restaurants.exceptions.RestaurantNotFoundException;
-import microfood.restaurants.exceptions.RestaurantServiceUnavailableException;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionHandlerController {
 
-    @ExceptionHandler({RestaurantNotFoundException.class, RestaurantServiceUnavailableException.class})
+    @ExceptionHandler({RestaurantNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public void handleNotFoundException() {
     }
